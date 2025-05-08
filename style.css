@@ -9,25 +9,28 @@
     .upper-container {
         display: flex;
         flex-direction: row;
-        border: 2px solid pink;
         width: 100%;
         height: 15%;
     }
 
         .display {
-            border: 2px solid red;
+            border: 2px solid lightblue;
             width: 80%;
+            background-color: rgb(87, 136, 120);
+            color: white;
+            font-size: 40px;
         }
 
         button {
             width: 20%;
+            background-color: blanchedalmond;
         }
 
 
     .button-grid {
         display: flex;
         flex-wrap: wrap;
-        border: 2px solid red;
+        border: 2px solid lightblue;
         height: 100%;
         
     }
@@ -39,7 +42,8 @@
             align-content: center;
             box-sizing: border-box;
 
-            border: 1px solid #000;
+            border: 1px solid rgb(47, 109, 129);
+            background-color: blanchedalmond;
             font-size: 40px;
             
             

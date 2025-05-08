@@ -39,7 +39,7 @@ function createGrid(size) {
                             case "/": result = +secondNumber !== 0 ? +firstNumber / +secondNumber : "Error"; break;
                             default: result = +secondNumber;
                         }
-                        displayElement.innerText = result;
+                        displayElement.innerText = (Math.round((result*100)))/100;
                         firstNumber = result;
                         previousSelection = "";
                         text = "";
@@ -65,7 +65,7 @@ function createGrid(size) {
                         case "/": result = +secondNumber !== 0 ? +firstNumber / +secondNumber : "Noooooo papucho nooo"; break;
                         default: result = +previousSelection;
                     }
-                    displayElement.innerText = result;
+                    displayElement.innerText = (Math.round((result*100)))/100;
                     firstNumber = result;
                     previousSelection = result;
                     currentOperator = "";
@@ -99,9 +99,57 @@ function createGrid(size) {
         operatorCounter = 0;
         isFloatPoint = false; // Reset on clear
     });
+
+    // Backspace button
+    const backSpaceButton = document.querySelector(".backspace");
+    backSpaceButton.addEventListener("click", () => {
+        let displayCurrentText = document.querySelector(".display").innerText;
+        //remove last digit
+        displayCurrentText = displayCurrentText.slice(0,-1);
+        // replace the display text with the new value
+        text = displayCurrentText;
+        document.querySelector(".display").innerText = text;
+        previousSelection = text;
+    })
 }
 
 createGrid(4);
+
+
+// Add keyboard support
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    // Prevent default actions for specific keys
+    const preventDefaultKeys = ['Enter', '=', 'Escape', 'Backspace', '+', '-', '*', '/', '.'];
+    if (preventDefaultKeys.includes(key)) {
+        event.preventDefault();
+    }
+
+    if (key === 'Enter' || key === '=') {
+        // Handle equals button
+        // find all the buttons and convert the nodes to an array
+        const equalsButton = Array.from(document.querySelectorAll('.button-grid div'))
+                            // busca el boton que tenga el inner text =
+                            .find(btn => btn.innerText === '=');
+                            // le hace click
+                            equalsButton?.click();
+    } else if (key === 'Escape') {
+        // Handle clear button
+        document.querySelector('.clear').click();
+    } else if (key === 'Backspace') {
+        // Handle backspace button
+        document.querySelector('.backspace').click();
+
+    } else if (buttons.includes(key)) {
+        // Handle number/operator buttons
+                        // idem, convierte en un array la lista de nodos de la botonera
+                        const button = Array.from(document.querySelectorAll('.button-grid div'))
+                        // encuentra el que coincida con lo que ingreso el usuario y le hace click
+                        .find(btn => btn.innerText === key);
+        button?.click();
+    }
+});
 
 
 /* function operate(firstNumber,operator,secondNumber) {
