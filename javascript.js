@@ -39,6 +39,21 @@ function createGrid(size) {
                             case "/": result = +secondNumber !== 0 ? +firstNumber / +secondNumber : "Error"; break;
                             default: result = +secondNumber;
                         }
+                        
+                        if (typeof(result) == 'string') {
+
+                            displayElement.innerText = "U bastard";
+                            previousSelection = "";
+                            firstNumber = "";
+                            secondNumber = "";
+                            currentOperator = "";
+                            operatorCounter = 0;
+                            isFloatPoint = false; // Reset on clear
+
+                            break;
+
+                        } 
+
                         displayElement.innerText = (Math.round((result*100)))/100;
                         firstNumber = result;
                         previousSelection = "";
@@ -46,6 +61,7 @@ function createGrid(size) {
                         currentOperator = selection;
                         operatorCounter = 1;
                         isFloatPoint = false; // Reset for new number
+
                     } else {
                         firstNumber = previousSelection;
                         currentOperator = selection;
@@ -65,6 +81,21 @@ function createGrid(size) {
                         case "/": result = +secondNumber !== 0 ? +firstNumber / +secondNumber : "Noooooo papucho nooo"; break;
                         default: result = +previousSelection;
                     }
+
+                    if (typeof(result) == 'string') {
+
+                        displayElement.innerText = "U bastard";
+                        previousSelection = "";
+                        firstNumber = "";
+                        secondNumber = "";
+                        currentOperator = "";
+                        operatorCounter = 0;
+                        isFloatPoint = false; // Reset on clear
+
+                        break;
+                        
+                } else {
+
                     displayElement.innerText = (Math.round((result*100)))/100;
                     firstNumber = result;
                     previousSelection = result;
@@ -72,6 +103,8 @@ function createGrid(size) {
                     operatorCounter = 0;
                     isFloatPoint = previousSelection.includes('.'); // Update based on result
                     break;
+                    
+                }
 
                 default:
                     if (selection === ".") {
